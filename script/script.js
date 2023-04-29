@@ -21,7 +21,7 @@ function getComputerChoice () {
 // get the user's choice
 function getUserChoice () {
     let usrChoice = prompt("Rock, papaer or scissors? (Enter 'r', 'p' or 's'): ")
-    return usrChoice;
+    return usrChoice.toLowerCase();
 };
 
 // put both choices against each other and decide based on rule
