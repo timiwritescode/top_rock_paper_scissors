@@ -19,31 +19,31 @@ function getComputerChoice () {
 };
 
 // get the user's choice
-function getUserChoice () {
-    let usrChoice = prompt("Rock, papaer or scissors? (Enter 'r', 'p' or 's'): ")
-    return usrChoice.toLowerCase();
-};
+const usrChoice = document.querySelector('input');
+const submitBtn = document.querySelector('button');
+let computerChoice = getComputerChoice()
+
+submitBtn.addEventListener('click', () => {getWinner(usrChoice.value, computerChoice)})    
+
+
+let playerScore = 0;
+let computerScore = 0;
 
 // put both choices against each other and decide based on rule
-let computerChoice = getComputerChoice();
-let usrChoice = getUserChoice();
-
-function defineRule (x, y) {
-    let draw = x == y ? true : false
-    let win_x = (x == 's' && y == 'p') 
-            || (x == 'r' && y == 's') 
-            || (x == 'p' && y == 'r') ? true : false 
+function declareWinner (player, computer) {
+    let draw = player == computer ? true : false
+    let win_x = (player === 's' && computer === 'p') 
+            || (player === 'r' && computer === 's') 
+            || (player === 'p' && computer === 'r') ? true : false 
     if (draw) {
-        console.log('Draw')
+        return 'Draw'
     } else {
         switch (win_x) {
             case true:
-                console.log('You win')
-                break;
+                return player;
 
             case false:
-                console.log('You lose')
-                break;
+                return computer;
             };
         };
     };
@@ -52,24 +52,69 @@ function translateAbbr (abbr) {
     // This function returns the full form of the inputs
     switch (abbr) {
         case 'r':
-            return 'Rock'
-            break;
+            return 'Rock';
 
         case 'p':
-            return 'Paper'
-            break;
+            return 'Paper';
 
         case 's':
-            return 'Scissors'
-            break;
+            return 'Scissors';
     }
     };
 
-function getWinner (computerChoice, userChoice) {
-    console.log(`Your choice: ${translateAbbr(userChoice)}`)
-    console.log(`Computer: ${translateAbbr(computerChoice)}`)
 
-    defineRule(userChoice, computerChoice)
+function isRoundComplete (player, computer) {
+    return player + computer === 5 ? true : false
 }
 
-getWinner(usrChoice, computerChoice);
+function resetGame () {
+    playerScore = 0;
+    computerChoice = 0;
+    console.clear()
+    console.log('Game Restarted')
+}
+
+function getWinner (userChoice, computerChoice) {
+    console.log(`Your choice: ${translateAbbr(userChoice)}`);
+    console.log(`Computer: ${translateAbbr(computerChoice)}`);
+
+    computerChoice = getComputerChoice()
+
+    let winner = declareWinner(userChoice, computerChoice);
+    
+
+    switch (isRoundComplete(playerScore, computerScore)) {
+        case true:
+            console.log(`Final score: Player ${playerScore} - ${computerScore} Computer`)
+            let victor = playerScore > computerScore ? 'Player wins' : 'Computer wins'
+            console.log(victor)
+            resetGame()
+            break;
+
+        default:
+            // console.clear()
+            switch(winner) {
+                case userChoice:
+                    console.log(`${translateAbbr(userChoice)} beats ${translateAbbr(computerChoice)}`)
+                    console.log('You win!')
+                    ++playerScore 
+                    break;
+        
+                case computerChoice:
+                    console.log(`${translateAbbr(computerChoice)} beats ${translateAbbr(userChoice)}`)
+                    console.log('You lose!')
+                    ++computerScore
+                    break;
+        
+                case 'Draw':
+                    console.log(`${translateAbbr(userChoice)} and ${translateAbbr(computerChoice)} ties!`)
+                    console.log('Tie!')
+                    
+                }
+                
+                console.log(`Player ${playerScore} - ${computerScore} Computer`)
+        }
+                
+    }
+
+    
