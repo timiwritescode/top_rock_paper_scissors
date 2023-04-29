@@ -25,10 +25,6 @@ let computerChoice = getComputerChoice()
 
 submitBtn.addEventListener('click', () => {getWinner(usrChoice.value, computerChoice)})    
 
-
-let playerScore = 0;
-let computerScore = 0;
-
 // put both choices against each other and decide based on rule
 function declareWinner (player, computer) {
     let draw = player == computer ? true : false
@@ -48,6 +44,13 @@ function declareWinner (player, computer) {
         };
     };
 
+
+// log player vs computer score upon every round
+let playerScore = 0;
+let computerScore = 0;
+
+
+// Utility functions go here
 function translateAbbr (abbr) {
     // This function returns the full form of the inputs
     switch (abbr) {
@@ -64,20 +67,26 @@ function translateAbbr (abbr) {
 
 
 function isRoundComplete (player, computer) {
+    // This function check if the player and computer scores add up to five
+    // to declare a round complete or not.
     return player + computer === 5 ? true : false
 }
 
 function resetGame () {
+    // This function reset game when called but reasonably after
+    //      best out of a playerScore + gameScore = five
     playerScore = 0;
     computerChoice = 0;
     console.clear()
     console.log('Game Restarted')
 }
 
+// The game engine itself
 function getWinner (userChoice, computerChoice) {
     console.log(`Your choice: ${translateAbbr(userChoice)}`);
     console.log(`Computer: ${translateAbbr(computerChoice)}`);
 
+    // reload computer choice
     computerChoice = getComputerChoice()
 
     let winner = declareWinner(userChoice, computerChoice);
@@ -108,13 +117,10 @@ function getWinner (userChoice, computerChoice) {
         
                 case 'Draw':
                     console.log(`${translateAbbr(userChoice)} and ${translateAbbr(computerChoice)} ties!`)
-                    console.log('Tie!')
-                    
-                }
-                
+                    console.log('Tie!')  
+                };
                 console.log(`Player ${playerScore} - ${computerScore} Computer`)
-        }
-                
-    }
+        };               
+    };
 
     
