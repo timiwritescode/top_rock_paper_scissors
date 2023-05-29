@@ -1,0 +1,111 @@
+:root {
+    --board-green: rgb(43, 226, 119);
+    --board-red: rgb(226, 43, 43);
+    --player-panel-bg: rgb(43, 214, 226);
+    --computer-panel-bg: rgb(201, 131, 248);
+}
+
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+
+
+div.score-board {
+    min-width: 50%;
+    margin: auto;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem
+}
+
+div.score-board > p {
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: 'Mochiy Pop One', system-ui,'Courier', sans-serif;
+    word-spacing: 5px;
+    letter-spacing: 2px;
+}
+
+.round-winner {
+    color: var(--board-green)
+}
+
+.round-loser {
+    color: var(--board-red)
+}
+
+main {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem
+}
+
+@media (min-width: 700px) {
+    main {
+        width: 700px;
+        margin: auto
+    }
+}
+
+div {
+    width: 100%;
+    border: 1px solid blue;
+
+};
+
+.weapons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.weapon {
+    margin: auto;
+    width: 80%;
+    height: 25%;
+    margin-bottom: 1rem;
+    box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.1);
+    border: none
+}
+
+.weapon > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.player-panel {
+    background-color: var(--player-panel-bg)
+}
+
+.computer-panel {
+    background-color: var(--computer-panel-bg);
+}
+
+
+/* An additional class toggled by javascript to add effect to the selected weapon */
+.weapon-choice {
+    box-shadow: 1px 1px 1px 1px rgb(0,0,0);
+}
+
+.choice-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.choice {
+    width: 80%;
+    height: 25%;
+}
+
+.versus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

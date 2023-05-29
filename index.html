@@ -5,10 +5,64 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock paper scissors</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mochiy+Pop+One">
+
     <script src="./script/script.js" defer></script>
 </head>
 <body>
-    <input type="text">
-    <button>Submit</button>
+    <header>
+        <h1>Welcome to rock paper scissors!</h1>
+        <div class="score-board">
+            <p>You: <span class="score round-winner">0</span></p>
+            <p>-</p>
+            <p>Computer: <span class="score round-loser">0</span></p>
+        </div>
+    </header>
+
+    <main>
+        <div class="player-panel weapons">
+            <div class="weapon rock-container">
+                <img src="./pictures/rock1.jpeg" alt="rock">
+            </div>
+
+            <div class="weapon paper-container">
+                <img src="./pictures/paper.jpeg" alt="paper">
+            </div>
+
+            <div class="weapon scissors-cotainer">
+                <img src="./pictures/scissors.jpeg" alt="scissors">
+            </div>
+        </div>
+
+        <div class="choice-container">
+            <div class="choice">
+
+            </div>
+        </div>
+        
+        <div class="versus">
+            <button>Play</button>
+        </div>
+        
+        <div class="choice-container">
+            <div class="choice"></div>
+        </div>
+        
+        <div class="computer-panel weapons">
+            <div class=" weapon rock-container">
+                <img src="./pictures/rock1.jpeg" alt="rock">
+            </div>
+
+            <div class="weapon paper-container">
+                <img src="./pictures/paper.jpeg" alt="paper">
+            </div>
+
+            <div class="weapon scissors-cotainer">
+                <img src="./pictures/scissors.jpeg" alt="scissors">
+            </div>
+        </div>
+    </main>
+    
 </body>
 </html>
