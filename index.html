@@ -14,30 +14,30 @@
     <header>
         <h1>Welcome to rock paper scissors!</h1>
         <div class="score-board">
-            <p>You: <span class="score round-winner">0</span></p>
+            <p>You: <span class="score player-score">0</span></p>
             <p>-</p>
-            <p>Computer: <span class="score round-loser">0</span></p>
+            <p>Computer: <span class="score computer-score">0</span></p>
         </div>
     </header>
 
     <main>
         <div class="player-panel weapons">
-            <div class="weapon rock-container">
+            <div class="weapon rock-container" id="r">
                 <img src="./pictures/rock1.jpeg" alt="rock">
             </div>
 
-            <div class="weapon paper-container">
+            <div class="weapon paper-container" id="p">
                 <img src="./pictures/paper.jpeg" alt="paper">
             </div>
 
-            <div class="weapon scissors-cotainer">
+            <div class="weapon scissors-cotainer" id="s">
                 <img src="./pictures/scissors.jpeg" alt="scissors">
             </div>
         </div>
 
         <div class="choice-container">
-            <div class="choice">
-
+            <div id="player-choice" class="choice">
+                
             </div>
         </div>
         
@@ -46,19 +46,19 @@
         </div>
         
         <div class="choice-container">
-            <div class="choice"></div>
+            <div id="computer-choice" class="choice"></div>
         </div>
         
         <div class="computer-panel weapons">
-            <div class=" weapon rock-container">
+            <div class=" weapon rock-container" id = "r">
                 <img src="./pictures/rock1.jpeg" alt="rock">
             </div>
 
-            <div class="weapon paper-container">
+            <div class="weapon paper-container" id="p">
                 <img src="./pictures/paper.jpeg" alt="paper">
             </div>
 
-            <div class="weapon scissors-cotainer">
+            <div class="weapon scissors-cotainer" id="s">
                 <img src="./pictures/scissors.jpeg" alt="scissors">
             </div>
         </div>
