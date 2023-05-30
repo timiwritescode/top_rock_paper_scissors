@@ -35,6 +35,7 @@ function presentComputerWeapon(computerWeapon) {
     let computerPanel = document.querySelector('.computer-panel');
     Array.from(computerPanel.children).forEach((f) => {
         if (f.id === computerWeapon) {
+            
             presentWeapon(f, '#computer-choice')
         }
     });
@@ -71,7 +72,7 @@ Array.from(playerChoice).forEach((choice) => {
 const submitBtn = document.querySelector('button');
 let computerChoice = getComputerChoice()
 
-submitBtn.addEventListener('click', () => {getWinner(usrChoice, computerChoice)})    
+submitBtn.addEventListener('click', () => {getWinner(usrChoice, computerChoice);})    
 
 // put both choices against each other and decide based on rule
 function declareWinner (player, computer) {
@@ -137,6 +138,29 @@ function resetGame () {
 
 }
 
+function displayWinner(winner) {
+    // This function displays the winner after each round of game
+    let winnerContainer = submitBtn.parentNode;
+    let weapons = playerChoice;
+
+    Array.from(weapons).forEach((weapon)=> {
+        if (weapon.id === winner) {
+            let roundWinner = weapon.cloneNode(true);
+            roundWinner.className = 'round-winner';
+            if (!winnerContainer.children[1]) {
+                winnerContainer.append(roundWinner)
+            } else {
+               winnerContainer.replaceChild(roundWinner, winnerContainer.children[1])
+            };
+            
+        };
+    })    
+
+     
+};
+
+
+
 // The game engine itself
 function getWinner (userChoice, computerChoice) {
     console.log(`Your choice: ${translateAbbr(userChoice)}`);
@@ -156,7 +180,9 @@ function getWinner (userChoice, computerChoice) {
             // reload computer choice
             computerChoice = getComputerChoice()
             presentComputerWeapon(computerChoice)
-            let winner = declareWinner(userChoice, computerChoice);
+            if (userChoice) {
+                let winner = declareWinner(userChoice, computerChoice);
+            displayWinner(winner)
             switch(winner) {
                 case userChoice:
                     console.log(`${translateAbbr(userChoice)} beats ${translateAbbr(computerChoice)}`)
@@ -177,7 +203,11 @@ function getWinner (userChoice, computerChoice) {
                     console.log('Tie!')  
                 };
                 console.log(`Player ${playerScore} - ${computerScore} Computer`)
+        } else {
+            alert('Choose something')
         };
+            }
+            
 
     
     
