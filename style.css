@@ -30,12 +30,17 @@ div.score-board > p {
     letter-spacing: 2px;
 }
 
-.round-winner {
+.round-winner-score {
     color: var(--board-green)
 }
 
-.round-loser {
+.round-loser-score {
     color: var(--board-red)
+}
+
+.round-winner {
+    border: 1px solid var(--board-green);
+
 }
 
 main {
@@ -53,7 +58,7 @@ main {
 
 div {
     width: 100%;
-    /*border: 1px solid blue;*/
+    border: 1px solid blue;
 
 };
 
@@ -115,4 +120,21 @@ div {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+}
+
+/* A class toggled by the button click event that declares a winner*/
+.round-winner {
+    border: 1px solid var(--board-green);
+    width: 80%;
+    height: 25%;
+    margin-top: 1rem;
+    background-color: var(--board-green)
+}
+
+.round-winner > img {
+    max-width: 100%;
+    height: 100%;
+    object-fit: contain;
+
 }
