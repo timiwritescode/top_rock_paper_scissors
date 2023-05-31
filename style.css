@@ -1,8 +1,11 @@
 :root {
     --board-green: rgb(43, 226, 119);
-    --board-red: rgb(226, 43, 43);
+    --board-red: rgb(230, 74, 74);
     --player-panel-bg: rgb(43, 214, 226);
     --computer-panel-bg: rgb(201, 131, 248);
+    --winner-color: rgb(32, 212, 26);
+    --loser-color: rgb(212, 56, 56);
+    --tie-color: rgb(20, 20, 20);
 }
 
 *,
@@ -19,11 +22,48 @@ div.score-board {
     margin-bottom: 1rem;
     display: flex;
     justify-content: center;
-    gap: 1rem
 }
 
-div.score-board > p {
-    font-size: 1.5rem;
+@media (min-width: 700px) {
+    div.score-board {
+        width: 700px;
+    }
+}
+
+.score-divider {
+    display: absolute;
+    width: 2rem;
+    height: 2rem;
+    right: 500px;
+    top: 2rem;
+}
+
+.result {
+    font-family: 'Mochiy Pop One', system-ui,'Courier', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    text-align: center;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+div.player-score-container {
+    background-color: var(--player-panel-bg);
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    border-right: 5px solid rgba(0,0,0,0.5);
+}
+
+div.computer-score-container {
+    background-color: var(--computer-panel-bg);
+    width: 100%
+}
+
+div.score-board > .player-score-container > p,
+div.score-board > .computer-score-container > p {
+    font-size: 1.2rem;
     font-weight: 600;
     font-family: 'Mochiy Pop One', system-ui,'Courier', sans-serif;
     word-spacing: 5px;
@@ -57,7 +97,6 @@ main {
 }
 
 div {
-    width: 100%;
     border: 1px solid blue;
 
 };
@@ -88,10 +127,19 @@ div {
     background-color: var(--player-panel-bg)
 }
 
+/* A class toggleable by javascript to style the weapon choice panel*/
+.player-choice-panel {
+    background-color: var(--player-panel-bg);
+}
+
 .computer-panel {
     background-color: var(--computer-panel-bg);
 }
 
+/* A class toggleable by javascript to style compute choice of weapon panel*/
+.computer-choice-panel {
+    background-color: var(--computer-panel-bg);
+}
 
 /* An additional class toggled by javascript to add effect to the selected weapon */
 .weapon-choice {
@@ -138,3 +186,24 @@ div {
     object-fit: contain;
 
 }
+
+button {
+    background-image: url('./pictures/fight.jpeg');
+    background-size: 100%;
+    
+    border-radius: 50%;
+    height: 2.5rem;
+    width: 2.5rem;
+
+}
+
+/* Following classes are toggleable by javascript for the declaration of final winner and loser*/
+.winner {
+    background-color: var(--winner-color);
+}
+
+.loser {
+    background-color: var(--loser-color);
+}
+
+/*--------------------------------------------------------------------------------------------------*/

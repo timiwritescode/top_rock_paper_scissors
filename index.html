@@ -13,52 +13,56 @@
 <body>
     <header>
         <h1>Welcome to rock paper scissors!</h1>
+        <p class="result">....</p>
         <div class="score-board">
-            <p>You: <span class="score player-score">0</span></p>
-            <p>-</p>
-            <p>Computer: <span class="score computer-score">0</span></p>
+            <div class="player-score-container">
+                <p>You: <span class="score player-score">0</span></p>
+            </div>
+            <div class="computer-score-container">
+                <p><span class="score computer-score">0</span> Computer</p>
+            </div>
         </div>
     </header>
 
     <main>
-        <div class="player-panel weapons">
-            <div class="weapon rock-container" id="r">
+        <div class="player-panel weapons player-final">
+            <div class="weapon rock-container player-final" id="r">
                 <img src="./pictures/rock1.jpeg" alt="rock">
             </div>
 
-            <div class="weapon paper-container" id="p">
+            <div class="weapon paper-container player-final" id="p">
                 <img src="./pictures/paper.jpeg" alt="paper">
             </div>
 
-            <div class="weapon scissors-cotainer" id="s">
+            <div class="weapon scissors-cotainer player-final" id="s">
                 <img src="./pictures/scissors.jpeg" alt="scissors">
             </div>
         </div>
 
-        <div class="choice-container">
-            <div id="player-choice" class="choice">
+        <div class="choice-container player-final">
+            <div class="choice player-choice player-final">
                 
             </div>
         </div>
         
-        <div class="versus">
-            <button>Play</button>
+        <div class="versus winner-final">
+            <button></button>
         </div>
         
-        <div class="choice-container">
-            <div id="computer-choice" class="choice"></div>
+        <div class="choice-container computer-final">
+            <div class="choice computer-choice computer-final"></div>
         </div>
         
-        <div class="computer-panel weapons">
-            <div class=" weapon rock-container" id = "r">
+        <div class="computer-panel weapons computer-final computer-final">
+            <div class=" weapon rock-container computer computer-final" id = "r">
                 <img src="./pictures/rock1.jpeg" alt="rock">
             </div>
 
-            <div class="weapon paper-container" id="p">
+            <div class="weapon paper-container computer computer-final" id="p">
                 <img src="./pictures/paper.jpeg" alt="paper">
             </div>
 
-            <div class="weapon scissors-cotainer" id="s">
+            <div class="weapon scissors-cotainer computer computer-final" id="s">
                 <img src="./pictures/scissors.jpeg" alt="scissors">
             </div>
         </div>

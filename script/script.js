@@ -1,5 +1,6 @@
 // let's rock paper scissors yo!
 const playerChoice = document.querySelector('.player-panel').children;
+let para = document.querySelector('.result');
 
 console.log(playerChoice)
 
@@ -8,12 +9,7 @@ console.log(playerChoice)
 // annoyingly
 function getRandomIndex() {
     // function to get the random index from 0 to 2
-    let randomNumber = Math.floor(Math.random() * 10);
-    if (randomNumber > 2) {
-        return getRandomIndex();
-    } else {
-        return randomNumber;
-    };
+    return Math.floor(Math.random() * 2);
 };
 
 // get computer's choice. Rock paper or scissors
@@ -23,85 +19,125 @@ function getComputerChoice () {
     return choices[getRandomIndex()];
 };
 
+// Function to remove computer weapon from computer choice panel
 function unPresentComputerWeapon() {
-    let weaponContainer = document.querySelector('#computer-choice');
+    let weaponContainer = document.querySelector('.computer-choice');
     console.log(weaponContainer)
     if (weaponContainer.children[0]){
     weaponContainer.removeChild(weaponContainer.children[0])
+    let computerChoicePanel = document.querySelectorAll('.choice-container')[1]
+    computerChoicePanel.classList.remove('computer-choice-panel')
+    
+    // Remove the winner's background from the center
+    // this should later go to a reset button
+    let winner = document.querySelector('.versus');
+    if (winner.classList.contains('player-choice-panel') || 
+        winner.classList.contains('computer-choice-panel')) {
+        // then there is a current winner, remove that winner and the color
+        winner.classList.remove(winner.classList[1])
+        winner.removeChild(winner.children[1])
+    }
     };
 };
 
+// Function to put the computer's random choice in the computer choice panel
 function presentComputerWeapon(computerWeapon) {
     let computerPanel = document.querySelector('.computer-panel');
     Array.from(computerPanel.children).forEach((f) => {
         if (f.id === computerWeapon) {
-            
-            presentWeapon(f, '#computer-choice')
+            presentWeapon(f, '.computer-choice');
+            let computerChoicePanel = document.querySelectorAll('.choice-container')[1]
+            computerChoicePanel.classList.add('computer-choice-panel');
         }
     });
+};
 
-}
-
+// Function to present the weapon of player in the player weapon panel
 function presentWeapon(weapon, classname) {
     let container = document.querySelector(classname);
     let weaponChoice = weapon.children[0].cloneNode(true);
     weaponChoice.className = 'choice-img';
+
     if (container.children[0] === undefined) {
-        
-        container.appendChild(weaponChoice)
-        
+        container.appendChild(weaponChoice);
     } else {
-        
-        container.replaceChild(weaponChoice, container.children[0])
-        
+        container.replaceChild(weaponChoice, container.children[0]);  
     };
-    
+    weaponChoice.parentNode.id = weapon.id
 };
 
-// get the user's choice
-let usrChoice ;
 
-Array.from(playerChoice).forEach((choice) => {
-        choice.addEventListener('click', () => {
-            usrChoice = choice.id;
-            presentWeapon(choice, '#player-choice');
-            unPresentComputerWeapon()    
-        }) 
-});
+// Function to nicely display the content of p.result
+function changeResultContent () {
+    let x = 0;
+    if (para.textContent === '....') {
+        intervalId = setInterval(() => {
+            if (x % 4 == 0) {
+                para.textContent = '.';
+            } else {
+                para.textContent += '.'
+            }
+            x += 1
+        }, 200)
+    }
+};
 
-const submitBtn = document.querySelector('button');
-let computerChoice = getComputerChoice()
-
-submitBtn.addEventListener('click', () => {getWinner(usrChoice, computerChoice);})    
-
-// put both choices against each other and decide based on rule
+// Function to put both choices against each other and decide based on rule
 function declareWinner (player, computer) {
     let draw = player == computer ? true : false
     let win_x = (player === 's' && computer === 'p') 
             || (player === 'r' && computer === 's') 
             || (player === 'p' && computer === 'r') ? true : false 
+    // declare the result UI
     if (draw) {
+        para.textContent = "It's a tie!";
+        para.style.color = 'var(--tie-color)';
         return 'Draw'
     } else {
         switch (win_x) {
             case true:
+                
+                para.textContent = "You win!";
+                para.style.color = 'var(--winner-color)';
                 return player;
 
             case false:
+                para.textContent = "You lose!";
+                para.style.color = 'var(--loser-color)';
                 return computer;
             };
         };
-    };
+};
 
-
-// log player vs computer score upon every round
-let playerScore = 0;
-let computerScore = 0;
-
-let uiPlayerScore = document.querySelector('.player-score')
-let uiComputerScore = document.querySelector('.computer-score')
 
 // Utility functions go here
+// Function to present colors of final loser or winner of game
+function showFinalWinner (finalPlayerScore, finalComputerScore) {
+    let finalPlayerContainer = document.querySelectorAll('.player-final');
+    let finalComputerContainer = document.querySelectorAll('.computer-final');
+    let finalWinner = document.querySelector('.winner-final');
+    
+    if (finalPlayerScore > finalComputerScore) {
+        
+        Array.from(finalPlayerContainer).forEach((player) => {
+            player.classList.add('winner');
+        })
+        Array.from(finalComputerContainer).forEach((player) => {
+            player.classList.add('loser');
+        })
+    } else {
+        Array.from(finalPlayerContainer).forEach((player) => {
+            player.classList.add('loser');
+        })
+        Array.from(finalComputerContainer).forEach((player) => {
+            player.classList.add('winner');})
+    };
+    finalWinner.classList.add('winner');   
+};
+
+
+
+//Function to convert abbreviation to full form
 function translateAbbr (abbr) {
     // This function returns the full form of the inputs
     switch (abbr) {
@@ -117,29 +153,24 @@ function translateAbbr (abbr) {
     };
 
 
+//Function to check if either of scores is up to five 
+//  (to check if round is complete)
 function isRoundComplete (player, computer) {
-    // This function check if the player and computer scores add up to five
-    // to declare a round complete or not.
-    if (player === 3 || computer === 3) {
+    if (player === 5 || computer === 5) {
+        showFinalWinner(player, computer)
         return true
     };
     return false;
 };
 
+// Function to reset game
 function resetGame () {
-    // This function reset game when called but reasonably after
-    //      best out of a playerScore + gameScore = five
-    playerScore = 0;
-    computerScore = 0;
-    uiComputerScore.textContent = computerScore
-    uiPlayerScore.textContent = playerScore
-    console.clear()
-    console.log('Game Restarted')
-
+    location.reload(true)
 }
 
-function displayWinner(winner) {
-    // This function displays the winner after each round of game
+
+// Function to display winner of after each round
+function displayWinner(winner) {    
     let winnerContainer = submitBtn.parentNode;
     let weapons = playerChoice;
 
@@ -147,18 +178,27 @@ function displayWinner(winner) {
         if (weapon.id === winner) {
             let roundWinner = weapon.cloneNode(true);
             roundWinner.className = 'round-winner';
+            
+            // Add the winner color to the winner declaration
+            let playerChoiceContainer = document.querySelector('.player-choice-panel').children;
+            console.log(playerChoiceContainer[0].children[0].id)
+            let computerChoiceContainer = document.querySelector('.computer-choice-panel').children;
+            console.log(computerChoiceContainer[0].children)
+            let newClass = winner === playerChoiceContainer[0].id ? 
+                    'player-choice-panel' : 
+                    'computer-choice-panel';
+            
+            
             if (!winnerContainer.children[1]) {
                 winnerContainer.append(roundWinner)
             } else {
-               winnerContainer.replaceChild(roundWinner, winnerContainer.children[1])
+               winnerContainer.replaceChild(roundWinner, winnerContainer.children[1]);
             };
+            roundWinner.parentNode.classList.add(newClass);
             
         };
-    })    
-
-     
+    });         
 };
-
 
 
 // The game engine itself
@@ -182,7 +222,7 @@ function getWinner (userChoice, computerChoice) {
             presentComputerWeapon(computerChoice)
             if (userChoice) {
                 let winner = declareWinner(userChoice, computerChoice);
-            displayWinner(winner)
+                displayWinner(winner)
             switch(winner) {
                 case userChoice:
                     console.log(`${translateAbbr(userChoice)} beats ${translateAbbr(computerChoice)}`)
@@ -206,15 +246,41 @@ function getWinner (userChoice, computerChoice) {
         } else {
             alert('Choose something')
         };
-            }
-            
-
-    
-    
-
-    
+            };    
         uiComputerScore.textContent = computerScore
         uiPlayerScore.textContent = playerScore               
     };
 
-    
+
+// Initialilzations;
+let submitBtn = document.querySelector('button');
+let computerChoice = getComputerChoice()
+let usrChoice ;
+let intervalId;
+
+// log player vs computer score upon every round
+let playerScore = 0;
+let computerScore = 0;
+
+let uiPlayerScore = document.querySelector('.player-score');
+let uiComputerScore = document.querySelector('.computer-score');
+
+
+Array.from(playerChoice).forEach((choice) => {
+    choice.addEventListener('click', () => {
+        usrChoice = choice.id;
+        presentWeapon(choice, '.player-choice');
+        let choicePanel = document.querySelectorAll('.choice-container')
+        choicePanel[0].classList.add('player-choice-panel')
+        unPresentComputerWeapon(); 
+        para.textContent = '....'
+        changeResultContent()
+    }) 
+});
+
+submitBtn.addEventListener('click', () => {
+    getWinner(usrChoice, computerChoice);
+    clearInterval(intervalId)
+});    
+
+window.addEventListener('load', () => {alert('Welcome to rock paper scissors')})
