@@ -187,7 +187,7 @@ div {
 
 }
 
-button {
+.button {
     background-image: url('./pictures/fight.jpeg');
     background-size: 100%;
     
@@ -195,6 +195,16 @@ button {
     height: 2.5rem;
     width: 2.5rem;
 
+}
+
+/* A class toggled by javascript on the click button to represent the end of game*/
+.reload {
+    background-image: url('./pictures/reload.jpeg');
+    background-size: 100%;
+    
+    border-radius: 50%;
+    height: 2.5rem;
+    width: 2.5rem;
 }
 
 /* Following classes are toggleable by javascript for the declaration of final winner and loser*/

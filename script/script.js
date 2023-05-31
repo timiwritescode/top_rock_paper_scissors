@@ -34,8 +34,11 @@ function unPresentComputerWeapon() {
     if (winner.classList.contains('player-choice-panel') || 
         winner.classList.contains('computer-choice-panel')) {
         // then there is a current winner, remove that winner and the color
-        winner.classList.remove(winner.classList[1])
-        winner.removeChild(winner.children[1])
+        console.log('Middle');
+        
+        winner.classList.remove(winner.classList[2]);
+        winner.removeChild(winner.children[1]);
+        console.log(Array.from(winner.classList));
     }
     };
 };
@@ -157,7 +160,7 @@ function translateAbbr (abbr) {
 //  (to check if round is complete)
 function isRoundComplete (player, computer) {
     if (player === 5 || computer === 5) {
-        showFinalWinner(player, computer)
+        
         return true
     };
     return false;
@@ -165,9 +168,20 @@ function isRoundComplete (player, computer) {
 
 // Function to reset game
 function resetGame () {
-    location.reload(true)
+    let resetButton = document.createElement('button');
+    resetButton.className = 'reload';
+    resetButton.addEventListener('click', () => {
+        location.reload(true)
+    })
+    submitBtn.parentNode.replaceChild(resetButton, submitBtn)
 }
 
+
+// Function to custom remove every event listener
+function customRemoveEventListener (parent, child) {
+    let newChild = child.cloneNode(true);
+    child.parentNode.replaceChild(newChild, child)
+}
 
 // Function to display winner of after each round
 function displayWinner(winner) {    
@@ -187,7 +201,6 @@ function displayWinner(winner) {
             let newClass = winner === playerChoiceContainer[0].id ? 
                     'player-choice-panel' : 
                     'computer-choice-panel';
-            
             
             if (!winnerContainer.children[1]) {
                 winnerContainer.append(roundWinner)
@@ -212,7 +225,7 @@ function getWinner (userChoice, computerChoice) {
             console.log(`Final score: Player ${playerScore} - ${computerScore} Computer`)
             let victor = playerScore > computerScore ? 'Player wins' : 'Computer wins'
             console.log(victor)
-            resetGame()
+    
             break;
 
         default:
@@ -266,21 +279,34 @@ let uiPlayerScore = document.querySelector('.player-score');
 let uiComputerScore = document.querySelector('.computer-score');
 
 
+
 Array.from(playerChoice).forEach((choice) => {
+   
     choice.addEventListener('click', () => {
         usrChoice = choice.id;
-        presentWeapon(choice, '.player-choice');
-        let choicePanel = document.querySelectorAll('.choice-container')
-        choicePanel[0].classList.add('player-choice-panel')
-        unPresentComputerWeapon(); 
-        para.textContent = '....'
-        changeResultContent()
+        if (playerScore === 5 || computerScore === 5) {
+            console.log('No');
+        } else {    
+            presentWeapon(choice, '.player-choice');
+            let choicePanel = document.querySelectorAll('.choice-container');
+            choicePanel[0].classList.add('player-choice-panel');
+            unPresentComputerWeapon(); 
+            para.textContent = '....';
+            changeResultContent();
+        }
+        
     }) 
 });
 
 submitBtn.addEventListener('click', () => {
-    getWinner(usrChoice, computerChoice);
-    clearInterval(intervalId)
+    if (playerScore === 5 || computerScore === 5) {
+        showFinalWinner(playerScore, computerScore)
+        resetGame();
+    } else {
+        getWinner(usrChoice, computerChoice);
+        clearInterval(intervalId)
+    };
+    
 });    
 
 window.addEventListener('load', () => {alert('Welcome to rock paper scissors')})
