@@ -139,7 +139,6 @@ function showFinalWinner (finalPlayerScore, finalComputerScore) {
 };
 
 
-
 //Function to convert abbreviation to full form
 function translateAbbr (abbr) {
     // This function returns the full form of the inputs
@@ -152,7 +151,7 @@ function translateAbbr (abbr) {
 
         case 's':
             return 'Scissors';
-    }
+    };
     };
 
 
@@ -225,7 +224,7 @@ function getWinner (userChoice, computerChoice) {
             console.log(`Final score: Player ${playerScore} - ${computerScore} Computer`)
             let victor = playerScore > computerScore ? 'Player wins' : 'Computer wins'
             console.log(victor)
-    
+            showFinalWinner(playerScore, computerScore)
             break;
 
         default:

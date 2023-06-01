@@ -5,7 +5,13 @@
     --computer-panel-bg: rgb(201, 131, 248);
     --winner-color: rgb(32, 212, 26);
     --loser-color: rgb(212, 56, 56);
-    --tie-color: rgb(20, 20, 20);
+    --tie-color: rgba(20, 20, 20, 0.733);
+    --game-font: 'Mochiy Pop One', system-ui,'Courier', sans-serif;
+    --rock-color: rgba(165, 42, 42, 0.747);
+    --paper-color: rgb(179, 72, 179);
+    --scissors-color: rgb(74, 183, 219);
+    --score-board-color: #37393a;
+    --div-shadow: rgba(0,0,0,0.2)
 }
 
 *,
@@ -14,7 +20,45 @@
     box-sizing: border-box;
 }
 
+h1 {
+    text-align: center;
+    font-family: var(--game-font);
+    color: var(--player-panel-bg) !important;
+    
 
+}
+
+.title-span {
+    box-shadow: 0px 3px 0px 0px var(--player-panel-bg);
+}
+
+h1::before {
+    content: 'd';
+    color: transparent
+}
+
+h1::after {
+    content: 'd';
+    color: transparent
+}
+
+.page-title {
+    height: 5rem;
+    width: 100%;
+    border: none
+}
+
+.rock {
+    color: var(--rock-color);
+}
+
+.paper {
+    color: var(--paper-color)
+}
+
+.scissors {
+    color: var(--scissors-color)
+}
 
 div.score-board {
     min-width: 50%;
@@ -97,7 +141,8 @@ main {
 }
 
 div {
-    border: 1px solid blue;
+    border: 1px solid inherit;
+    box-shadow: 2px 2px 2px 2px var(--div-shadow)
 
 };
 
@@ -217,3 +262,6 @@ div {
 }
 
 /*--------------------------------------------------------------------------------------------------*/
+p {
+    color: var(--tie-color)
+}
