@@ -265,7 +265,7 @@ function getWinner (userChoice, computerChoice) {
 
 
 // Initialilzations;
-let submitBtn = document.querySelector('button');
+let submitBtn = document.querySelector('.button');
 let computerChoice = getComputerChoice()
 let usrChoice ;
 let intervalId;
@@ -307,5 +307,3 @@ submitBtn.addEventListener('click', () => {
     };
     
 });    
-
-window.addEventListener('load', () => {alert('Welcome to rock paper scissors')})

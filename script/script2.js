@@ -66,3 +66,41 @@ function startInterval () {
 }, 150)}
 
 startInterval()
+
+function toggleInstructions () {
+    let navButton = document.querySelector('.toggle-pop-up');
+    navButton.addEventListener('click', () => {
+        let popUp = document.querySelector('.blur-bg');
+        popUp.style.display = 'flex';
+    })
+};
+
+toggleInstructions()
+
+
+function togglePopUp () {
+    let popUp = document.querySelector('.blur-bg');
+    let playBtn = document.querySelector('.play-btn')
+    let instructionBtn = document.querySelector('.instruction-btn');
+    let rulesBtn = document.querySelector('.rules-btn');
+    let rules = document.querySelector('.rules');
+    let instruction = document.querySelector('.instruction')
+    playBtn.addEventListener('click', () => {
+        popUp.style.display = 'none'; 
+    });
+
+    rulesBtn.addEventListener('click', () => {
+        rules.style.display = 'inherit';
+        instruction.style.display = 'none';
+
+    });
+
+    instructionBtn.addEventListener('click', () => {
+        instruction.style.display = 'inherit';
+        rules.style.display = 'none';
+    });
+};
+
+// initializations
+
+window.addEventListener('load', togglePopUp);
