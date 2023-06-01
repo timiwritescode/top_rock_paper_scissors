@@ -6,15 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock paper scissors</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mochiy+Pop+One">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mochiy+Pop+One|Poppins">
 
     <script src="./script/script.js" defer></script>
     <script src="./script/script2.js" defer></script>
 </head>
 <body>
+    <div class="blur-bg">
+        <div class="msg-box">
+            <p class="welcome">Welcome to rock paper scissors!</p>
+            <div class="rules">
+                <p>Rules</p>
+                <ul>
+                    <li>Rock beats scissors</li>
+                    <li>Scissors beats paper</li>
+                    <li>Paper beats rock</li>
+                </ul>
+                <p>The first to five wins the game</p>
+                
+                
+            </div>
+            <div class="instruction">
+                <h3>How to play?</h3>
+                <div class="color-desc">
+                    <p>Your panel is in light blue </p>
+                    <div class="color-marker"></div>
+                </div>
+                <p></p>
+                <ul>
+                    <li>Click on one of the pictures in your panel to register your choice</li>
+                    <li>Afterwards, click on the button in the middle to submit the choice and 
+                        pitch it against the computer's own choice.
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="buttons">
+                <button class="rules-btn">Rules</button>
+                <button class="play-btn">Play</button>
+                <button class="instruction-btn">instruction</button>
+            </div>
+        </div>
+    </div>
+    
     <header>
-        <h1>Welcome to rock paper scissors!</h1>
-        <p class="result">....</p>
+            <h1>Welcome to rock paper scissors!</h1>
+            <div class="toggle-pop-up"></div>
+            <div class="header-buttons">
+                <button class="instruction-header">Instruction</button>
+                <button class="rules-header">Rules</button> 
+            </div>          
+    </header>
+
+    <p class="result">....</p>
         <div class="score-board">
             <div class="player-score-container">
                 <p>You: <span class="score player-score">0</span></p>
@@ -23,9 +67,10 @@
                 <p><span class="score computer-score">0</span> Computer</p>
             </div>
         </div>
-    </header>
-
-    <main>
+    
+        <main>
+        
+       
         <div class="player-panel weapons player-final">
             <div class="weapon rock-container player-final" id="r">
                 <img src="./pictures/rock1.jpeg" alt="rock">
