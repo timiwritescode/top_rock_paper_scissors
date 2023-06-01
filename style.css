@@ -11,7 +11,9 @@
     --paper-color: rgb(179, 72, 179);
     --scissors-color: rgb(74, 183, 219);
     --score-board-color: #37393a;
-    --div-shadow: rgba(0,0,0,0.2)
+    --div-shadow: rgba(0,0,0,0.2);
+    --play-btn-dark: rgb(178, 93, 235);
+    --rules-btn-dark: rgb(18, 155, 165);
 }
 
 *,
@@ -20,12 +22,72 @@
     box-sizing: border-box;
 }
 
+header {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    align-items: center;
+    width: 100%;
+}
+
+header > div.header-buttons {
+    box-shadow: none;
+}
+
+.header-buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+header > .header-buttons > button {
+    display: none;
+    border: none;
+    border-radius: 1rem;
+    margin-left: 1rem;
+    max-width: 5rem;
+    font-size: 1rem;
+    text-align: center;
+    padding: 0.4rem
+}
+
+button.instruction-header {
+    background-color: var(--player-panel-bg);
+    margin-left: 1rem;
+}
+
+button.rules-header {
+    background-color: var(--computer-panel-bg);
+}
+
+div.toggle-pop-up {
+    background-image: url('./pictures/nav-image.jpeg');
+    background-size: cover;
+    height: 2rem;
+    width: 2rem;
+}
+
+@media (min-width: 700px) {
+    header {
+        max-width: 700px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 10fr 1fr 1fr;
+        align-items: center;
+    }
+
+    header > .header-buttons > button {
+        display: inherit;
+    }
+
+    header > div.toggle-pop-up {
+        display: none;
+    }
+}
+
 h1 {
     text-align: center;
     font-family: var(--game-font);
     color: var(--player-panel-bg) !important;
-    
-
+    margin-top: 1rem;
 }
 
 .title-span {
@@ -41,6 +103,7 @@ h1::after {
     content: 'd';
     color: transparent
 }
+
 
 .page-title {
     height: 5rem;
@@ -85,12 +148,14 @@ div.score-board {
 .result {
     font-family: 'Mochiy Pop One', system-ui,'Courier', sans-serif;
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-align: center;
     padding: 0;
     margin-top: 0;
     margin-bottom: 0;
 }
+
+
 
 div.player-score-container {
     background-color: var(--player-panel-bg);
@@ -264,4 +329,137 @@ div {
 /*--------------------------------------------------------------------------------------------------*/
 p {
     color: var(--tie-color)
+}
+
+.blur-bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(0,0,0,0.4);
+    top: 0;
+    left: 0;
+    bottom: -8px;
+    right: -8px;
+    
+}
+
+
+.msg-box {
+    z-index: 2;
+    background-color: white;
+    color: black;
+    padding: 0.4rem;
+    border-radius: 1rem;
+    
+}
+
+.welcome {
+    text-align: center;
+}
+
+.msg-box > p {
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-family: 'Poppins';
+}
+
+.msg-box > .buttons {
+    float: right;
+    box-shadow: unset;
+}
+
+.buttons > button {
+    font-family: 'Poppins';
+    border-radius: 0.2rem;
+    border: none;
+    color: rgb(112, 104, 104);
+}
+
+.buttons > button:hover {
+    cursor: pointer;
+}
+
+.rules-btn, .instruction-btn {
+    background-color: var(--player-panel-bg);
+}
+
+.rules-btn:hover, .instruction-btn:hover {
+    background-color: var(--rules-btn-dark);
+    color: white;
+}
+
+.play-btn {
+    background-color: var(--computer-panel-bg);
+}
+
+.play-btn:hover {
+    background-color: var(--play-btn-dark);
+    color: white;
+}
+
+.rules {
+    box-shadow: unset;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.rules > ul {
+    font-family: 'Poppins', 'Courier', sans-serif;
+}
+
+.rules > p {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.rules > p:last-child {
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+/* INSTRUCTIONS */
+.instruction {
+    box-shadow: none;
+    display: none;
+}
+
+.instruction > h3 {
+    font-family: 'Poppins';
+    text-align: center;
+    margin: 0;
+}
+
+.color-desc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: unset;
+}
+
+.color-desc > p {
+    margin-bottom: 0;
+}
+
+.color-marker {
+    height: 1rem;
+    width: 3rem;
+    margin-left: 0.4rem;
+    background-color: var(--player-panel-bg);
+    
+}   
+
+p.instruction {
+    font-size: 1rem;
+}
+
+.instruction > ul {
+    font-family: 'Poppins', Verdana, Geneva, Tahoma, sans-serif;
 }
