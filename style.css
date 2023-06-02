@@ -22,11 +22,16 @@
     box-sizing: border-box;
 }
 
+body {
+    margin-top: 0;
+}
+
 header {
     display: grid;
     grid-template-columns: 90% 10%;
     align-items: center;
     width: 100%;
+    margin-top: 0;
 }
 
 header > div.header-buttons {
@@ -43,10 +48,10 @@ header > .header-buttons > button {
     border: none;
     border-radius: 1rem;
     margin-left: 1rem;
-    max-width: 5rem;
+    max-width: 7rem;
     font-size: 1rem;
     text-align: center;
-    padding: 0.4rem
+    padding: 0.7rem
 }
 
 button.instruction-header {
@@ -153,6 +158,20 @@ div.score-board {
     padding: 0;
     margin-top: 0;
     margin-bottom: 0;
+}
+
+.analysis {
+    font-family: 'Mochiy Pop One', system-ui,'Courier', sans-serif;
+    text-align: center;
+
+}
+
+.analyis-winner {
+    color: var(--winner-color)
+}
+
+.analysis-loser {
+    color: var(--loser-color);
 }
 
 
@@ -354,8 +373,12 @@ p {
     color: black;
     padding: 0.4rem;
     border-radius: 1rem;
-    width: 60%
-    
+}
+
+@media (min-width: 700px) {
+    .msg-box {
+        width: 60%
+    }
 }
 
 .welcome {
