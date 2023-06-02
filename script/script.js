@@ -9,7 +9,12 @@ console.log(playerChoice)
 // annoyingly
 function getRandomIndex() {
     // function to get the random index from 0 to 2
-    return Math.floor(Math.random() * 2);
+    let random = Math.floor(Math.random() * 10);
+    if (random > 2) {
+        random = getRandomIndex();
+        return random
+    }
+    return random;
 };
 
 // get computer's choice. Rock paper or scissors
