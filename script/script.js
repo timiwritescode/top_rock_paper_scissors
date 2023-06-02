@@ -235,34 +235,42 @@ function getWinner (userChoice, computerChoice) {
             presentComputerWeapon(computerChoice)
             if (userChoice) {
                 let winner = declareWinner(userChoice, computerChoice);
+                let analysisPara = document.querySelector('.analysis');
+                
                 displayWinner(winner)
-            switch(winner) {
-                case userChoice:
-                    console.log(`${translateAbbr(userChoice)} beats ${translateAbbr(computerChoice)}`)
-                    console.log('You win!')
-                    ++playerScore 
-                    
-                    break;
-        
-                case computerChoice:
-                    console.log(`${translateAbbr(computerChoice)} beats ${translateAbbr(userChoice)}`)
-                    console.log('You lose!')
-                    ++computerScore
-                    
-                    break;
-        
-                case 'Draw':
-                    console.log(`${translateAbbr(userChoice)} and ${translateAbbr(computerChoice)} ties!`)
-                    console.log('Tie!')  
-                };
+                switch(winner) {
+                    case userChoice:
+                        analysisPara.textContent = `${translateAbbr(userChoice)} beats ${translateAbbr(computerChoice)}`;
+                        analysisPara.className = 'analysis analyis-winner';
+                        console.log(`${translateAbbr(userChoice)} beats ${translateAbbr(computerChoice)}`)
+                        console.log('You win!')
+                        ++playerScore 
+                        
+                        break;
+            
+                    case computerChoice:
+                        analysisPara.textContent = `${translateAbbr(computerChoice)} beats ${translateAbbr(userChoice)}`;
+                        analysisPara.className = 'analysis analysis-loser'
+                        console.log(`${translateAbbr(computerChoice)} beats ${translateAbbr(userChoice)}`)
+                        console.log('You lose!')
+                        ++computerScore
+                        
+                        break;
+            
+                    case 'Draw':
+                        analysisPara.textContent = `${translateAbbr(userChoice)} and ${translateAbbr(computerChoice)} ties!`;
+                        analysisPara.className = 'analysis analysis-draw';
+                        console.log(`${translateAbbr(userChoice)} and ${translateAbbr(computerChoice)} ties!`)
+                        console.log('Tie!')  
+                    };
                 console.log(`Player ${playerScore} - ${computerScore} Computer`)
-        } else {
-            alert('Choose something')
+            } else {
+                alert('Choose something')
+            };
+                };    
+            uiComputerScore.textContent = computerScore
+            uiPlayerScore.textContent = playerScore               
         };
-            };    
-        uiComputerScore.textContent = computerScore
-        uiPlayerScore.textContent = playerScore               
-    };
 
 
 // Initialilzations;
@@ -284,6 +292,9 @@ Array.from(playerChoice).forEach((choice) => {
    
     choice.addEventListener('click', () => {
         usrChoice = choice.id;
+        let analysis = document.querySelector('.analysis');
+        analysis.textContent = 'Rock, Paper, Scissors';
+        analysis.className = 'analysis';
         if (playerScore === 5 || computerScore === 5) {
             console.log('No');
         } else {    
