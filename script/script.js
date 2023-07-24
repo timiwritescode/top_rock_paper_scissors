@@ -1,12 +1,10 @@
+import { toggleInstructions, togglePopUp } from "./script2.js";
+
 // let's rock paper scissors yo!
 const playerChoice = document.querySelector('.player-panel').children;
-let para = document.querySelector('.result');
-
-console.log(playerChoice)
 
 
-// get the randomIndex since js annoyingly does not have a random module
-// annoyingly
+// get a random index between 0 and 2
 function getRandomIndex() {
     // function to get the random index from 0 to 2
 
@@ -23,7 +21,6 @@ function getComputerChoice () {
 // Function to remove computer weapon from computer choice panel
 function unPresentComputerWeapon() {
     let weaponContainer = document.querySelector('.computer-choice');
-    console.log(weaponContainer)
     if (weaponContainer.children[0]){
     weaponContainer.removeChild(weaponContainer.children[0])
     let computerChoicePanel = document.querySelectorAll('.choice-container')[1]
@@ -35,12 +32,10 @@ function unPresentComputerWeapon() {
     if (winner.classList.contains('player-choice-panel') || 
         winner.classList.contains('computer-choice-panel')) {
         // then there is a current winner, remove that winner and the color
-        console.log('Middle');
-        
+        console.log(winner)        
         winner.classList.remove(winner.classList[2]);
         winner.removeChild(winner.children[1]);
-        console.log(Array.from(winner.classList));
-    }
+    };
     };
 };
 
@@ -74,6 +69,7 @@ function presentWeapon(weapon, classname) {
 // Function to nicely display the content of p.result
 function changeResultContent () {
     let x = 0;
+    let para = document.querySelector('.result')
     if (para.textContent === '....') {
         intervalId = setInterval(() => {
             if (x % 4 == 0) {
@@ -88,7 +84,8 @@ function changeResultContent () {
 
 // Function to put both choices against each other and decide based on rule
 function declareWinner (player, computer) {
-    let draw = player == computer ? true : false
+    let draw = player == computer ? true : false;
+    let para = document.querySelector('.result');
     let win_x = (player === 's' && computer === 'p') 
             || (player === 'r' && computer === 's') 
             || (player === 'p' && computer === 'r') ? true : false 
@@ -168,23 +165,24 @@ function isRoundComplete (player, computer) {
 
 // Function to reset game
 function resetGame () {
+    let submitBtn = document.querySelector('.button')
     let resetButton = document.createElement('button');
     resetButton.className = 'reload';
     resetButton.addEventListener('click', () => {
-        location.reload(true)
+        // location.reload(true)
+        playerScore = 0;
+        computerScore = 0;
+        returnToScratch()
+        toggleInstructions();
+        togglePopUp()        
     })
     submitBtn.parentNode.replaceChild(resetButton, submitBtn)
 }
 
 
-// Function to custom remove every event listener
-function customRemoveEventListener (parent, child) {
-    let newChild = child.cloneNode(true);
-    child.parentNode.replaceChild(newChild, child)
-}
-
 // Function to display winner of after each round
 function displayWinner(winner) {    
+    let submitBtn = document.querySelector('.button')
     let winnerContainer = submitBtn.parentNode;
     let weapons = playerChoice;
 
@@ -195,14 +193,12 @@ function displayWinner(winner) {
             
             // Add the winner color to the winner declaration
             let playerChoiceContainer = document.querySelector('.player-choice-panel').children;
-            console.log(playerChoiceContainer[0].children[0].id)
-            let computerChoiceContainer = document.querySelector('.computer-choice-panel').children;
-            console.log(computerChoiceContainer[0].children)
             let newClass = winner === playerChoiceContainer[0].id ? 
                     'player-choice-panel' : 
                     'computer-choice-panel';
             
             if (!winnerContainer.children[1]) {
+                console.log(winnerContainer)
                 winnerContainer.append(roundWinner)
             } else {
                winnerContainer.replaceChild(roundWinner, winnerContainer.children[1]);
@@ -214,22 +210,16 @@ function displayWinner(winner) {
 };
 
 
-// The game engine itself
+// Function to get the winner of each rally
 function getWinner (userChoice, computerChoice) {
-    console.log(`Your choice: ${translateAbbr(userChoice)}`);
-    console.log(`Computer: ${translateAbbr(computerChoice)}`);
-
     // Test the game state
     switch (isRoundComplete(playerScore, computerScore)) {
         case true:
-            console.log(`Final score: Player ${playerScore} - ${computerScore} Computer`)
-            let victor = playerScore > computerScore ? 'Player wins' : 'Computer wins'
-            console.log(victor)
+
             showFinalWinner(playerScore, computerScore)
             break;
 
-        default:
-            // console.clear()
+        default:            
             // reload computer choice
             computerChoice = getComputerChoice()
             presentComputerWeapon(computerChoice)
@@ -268,6 +258,11 @@ function getWinner (userChoice, computerChoice) {
                 alert('Choose something')
             };
                 };    
+
+            // display each player's score in the UI
+            let uiPlayerScore = document.querySelector('.player-score');
+            let uiComputerScore = document.querySelector('.computer-score');
+
             uiComputerScore.textContent = computerScore
             uiPlayerScore.textContent = playerScore               
         };
@@ -283,33 +278,34 @@ let intervalId;
 let playerScore = 0;
 let computerScore = 0;
 
-let uiPlayerScore = document.querySelector('.player-score');
-let uiComputerScore = document.querySelector('.computer-score');
 
-
-
-Array.from(playerChoice).forEach((choice) => {
-   
-    choice.addEventListener('click', () => {
-        usrChoice = choice.id;
+// function to log player choice in weapon section
+function setPlayerChoice (choice) {
+    usrChoice = choice.id;
+    let para = document.querySelector('.result')
         let analysis = document.querySelector('.analysis');
         analysis.textContent = 'Rock, Paper, Scissors';
         analysis.className = 'analysis';
         if (playerScore === 5 || computerScore === 5) {
             console.log('No');
+            
         } else {    
             presentWeapon(choice, '.player-choice');
             let choicePanel = document.querySelectorAll('.choice-container');
+            
             choicePanel[0].classList.add('player-choice-panel');
             unPresentComputerWeapon(); 
             para.textContent = '....';
             changeResultContent();
-        }
-        
-    }) 
-});
+        };
+        // if there is currently a winner's insignia in the middle panel
+        // remove the insignia
+        removeInsignia()
+};
 
-submitBtn.addEventListener('click', () => {
+
+// function to use submit button
+function useSubmitBtn () {
     if (playerScore === 5 || computerScore === 5) {
         showFinalWinner(playerScore, computerScore)
         resetGame();
@@ -318,4 +314,47 @@ submitBtn.addEventListener('click', () => {
         clearInterval(intervalId)
     };
     
-});    
+}
+
+// function remove winner's insignia
+function removeInsignia () {
+    let versus = document.querySelector('.versus');
+    let winnerColor = versus.classList[2]
+    if (versus.classList.length > 2) {
+        versus.classList.remove(winnerColor)
+    }; 
+}
+
+Array.from(playerChoice).forEach((choice) => {
+   
+    choice.addEventListener('click', () => {
+        setPlayerChoice(choice)
+          
+    }) 
+});
+
+submitBtn.addEventListener('click', useSubmitBtn);    
+
+// save the html/ dom at the initial state to a variable
+let bodyElement = document.body; 
+let savedState = '';
+savedState = bodyElement.innerHTML;
+
+function returnToScratch () {
+    let bodyElement = document.body;
+    bodyElement.innerHTML = savedState;
+
+    // let's rock paper scissors yo!
+    const playerChoice = document.querySelector('.player-panel').children;
+
+        let fightBtn = document.querySelector('.button');
+
+    Array.from(playerChoice).forEach((choice) => {
+           choice.addEventListener('click', () => {
+           setPlayerChoice(choice);
+        }) 
+    });
+
+    fightBtn.addEventListener('click', useSubmitBtn);
+}
+

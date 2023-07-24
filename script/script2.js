@@ -1,16 +1,9 @@
 // Add functionality for the rock paper scissors logo
 
-let pageTitle = document.querySelector('h1');
-
-
-
-let intId;
-let y = 0;
-
-let rps = ['rock!', 'paper!!', 'scissors!!!']
-
 
 function changeClassName (number) {
+    const pageTitle = document.querySelector('h1');
+
     switch (number) {
         case 1:
             pageTitle.className = 'paper'
@@ -29,7 +22,9 @@ function changeClassName (number) {
 function startInterval () {
     let x = 0;
     let y = 0;
+    const pageTitle = document.querySelector('h1');
     
+    let rps = ['rock!', 'paper!!', 'scissors!!!']
     let increment = true;
     pageTitle.textContent = '';
     setInterval(() => {
@@ -67,7 +62,7 @@ function startInterval () {
 
 startInterval()
 
-function toggleInstructions () {
+export function toggleInstructions () {
     let navButton = document.querySelector('.toggle-pop-up');
     let instructionBtn = document.querySelector('.instruction-header');
     let rulesBtn = document.querySelector('.rules-header');
@@ -113,7 +108,7 @@ function toggleInstructions () {
 toggleInstructions()
 
 
-function togglePopUp () {
+export function togglePopUp () {
     let popUp = document.querySelector('.blur-bg');
     let playBtn = document.querySelector('.play-btn')
     let instructionBtn = document.querySelector('.instruction-btn');
