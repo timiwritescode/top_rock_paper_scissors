@@ -1,4 +1,4 @@
-import { toggleInstructions, togglePopUp } from "./script2.js";
+import { toggleInstructions, togglePopUp, startInterval } from "./script2.js";
 
 // let's rock paper scissors yo!
 const playerChoice = document.querySelector('.player-panel').children;
@@ -68,6 +68,7 @@ function presentWeapon(weapon, classname) {
 
 // Function to nicely display the content of p.result
 function changeResultContent () {
+    
     let x = 0;
     let para = document.querySelector('.result')
     if (para.textContent === '....') {
@@ -169,12 +170,13 @@ function resetGame () {
     let resetButton = document.createElement('button');
     resetButton.className = 'reload';
     resetButton.addEventListener('click', () => {
-        // location.reload(true)
+        
         playerScore = 0;
         computerScore = 0;
         returnToScratch()
         toggleInstructions();
-        togglePopUp()        
+        togglePopUp();
+        startInterval()        
     })
     submitBtn.parentNode.replaceChild(resetButton, submitBtn)
 }
@@ -211,7 +213,7 @@ function displayWinner(winner) {
 
 
 // Function to get the winner of each rally
-function getWinner (userChoice, computerChoice) {
+function getWinner (userChoice) {
     // Test the game state
     switch (isRoundComplete(playerScore, computerScore)) {
         case true:
@@ -221,9 +223,10 @@ function getWinner (userChoice, computerChoice) {
 
         default:            
             // reload computer choice
-            computerChoice = getComputerChoice()
-            presentComputerWeapon(computerChoice)
+            
             if (userChoice) {
+                let computerChoice = getComputerChoice()
+                presentComputerWeapon(computerChoice)
                 let winner = declareWinner(userChoice, computerChoice);
                 let analysisPara = document.querySelector('.analysis');
                 
@@ -270,9 +273,9 @@ function getWinner (userChoice, computerChoice) {
 
 // Initialilzations;
 let submitBtn = document.querySelector('.button');
-let computerChoice = getComputerChoice()
-let usrChoice ;
+
 let intervalId;
+let usrChoice;
 
 // log player vs computer score upon every round
 let playerScore = 0;
@@ -310,7 +313,7 @@ function useSubmitBtn () {
         showFinalWinner(playerScore, computerScore)
         resetGame();
     } else {
-        getWinner(usrChoice, computerChoice);
+        getWinner(usrChoice);
         clearInterval(intervalId)
     };
     
@@ -354,7 +357,10 @@ function returnToScratch () {
            setPlayerChoice(choice);
         }) 
     });
+    usrChoice = undefined;
+    intervalId = undefined;
 
     fightBtn.addEventListener('click', useSubmitBtn);
+
 }
 

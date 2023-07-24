@@ -19,7 +19,7 @@ function changeClassName (number) {
 }
 
 
-function startInterval () {
+export function startInterval () {
     let x = 0;
     let y = 0;
     const pageTitle = document.querySelector('h1');
