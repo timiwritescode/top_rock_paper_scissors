@@ -1,4 +1,4 @@
-import { toggleInstructions, togglePopUp, startInterval } from "./script2.js";
+import { toggleInstructions, togglePopUp, startInterval } from "./util.js";
 
 // let's rock paper scissors yo!
 const playerChoice = document.querySelector('.player-panel').children;
